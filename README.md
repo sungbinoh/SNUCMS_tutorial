@@ -16,7 +16,7 @@
     
 **CMS**
 - PAG/POG introduction (원)    
-- Hypernews subscription (원)    
+- Hypernews subscription (준빈)    
 - EPR works (지훈/시현)    
 - Analysis review process (시현)    
     
