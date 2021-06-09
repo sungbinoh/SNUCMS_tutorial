@@ -1,0 +1,169 @@
+% 서울대학교 전기공학부 (전기컴퓨터공학부) 석사ㅡ 박사 학위논문
+% LaTeX 양식 샘플
+\RequirePackage{fix-cm} % documentclass 이전에 넣는다.
+% oneside : 단면 인쇄용
+% twoside : 양면 인쇄용
+% ko : 국문 논문 작성
+% master : 석사
+% phd : 박사
+% openright : 챕터가 홀수쪽에서 시작
+\documentclass[oneside,phd,openright]{snuthesis}
+
+\include{snutocstyle} % SNU toc style
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%% 다른 패키지 로드
+%% http://faq.ktug.or.kr/faq/pdflatex%B0%FAlatex%B5%BF%BD%C3%BB%E7%BF%EB
+%% 필요에 따라 직접 수정 필요
+\ifpdf
+	\input glyphtounicode\pdfgentounicode=1 %type 1 font사용시
+	%\usepackage[pdftex,unicode]{hyperref} % delete me
+	\usepackage[pdftex]{graphicx}
+	%\usepackage[pdftex,svgnames]{xcolor}
+        \usepackage{subfig}
+        \usepackage{xspace}
+        \usepackage{amsmath,amssymb,cancel} %% -- To write formula
+        \usepackage{multirow} %% -- To use multirow on tables
+        \usepackage{pennames} %% -- From CMS note util
+        \usepackage{ifthen} %% -- For ptdr-definitions
+        \usepackage{ptdr-definitions} %% From CMS note util
+\else
+	%\usepackage[dvipdfmx,unicode]{hyperref} % delete me
+	\usepackage[dvipdfmx]{graphicx}
+	%\usepackage[dvipdfmx,svgnames]{xcolor}
+\fi
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+%\usepackage[
+%    backend=biber,
+%    style=authoryear-icomp,
+%    sortlocale=de_DE,
+%    natbib=true,
+%    url=false, 
+%    doi=true,
+%    eprint=false
+%]{biblatex}
+\usepackage[backend=biber]{biblatex}
+%\bibliography{Main.bib}
+\addbibresource{Main.bib}
+\usepackage[]{hyperref}
+\hypersetup{
+%    colorlinks=true,
+}
+\usepackage{lipsum} % lorem ipsum
+
+%% -- You can define any character here for convenience
+\newcommand{\N}{\ensuremath{\mathrm{N}}\xspace}
+\newcommand{\mN}{\ensuremath{m_\mathrm{N}}\xspace}
+\newcommand{\Zp}{\ensuremath{{Z}^{\prime}}\xspace}
+\newcommand{\mZp}{\ensuremath{{m}_\mathrm{{Z}^{\prime}}}\xspace}
+\newcommand{\mWR}{\ensuremath{{m}_\mathrm{{W}_{\mathrm{R}}^{\prime}}}\xspace}
+\newcommand{\WR}{\ensuremath{{\mathrm{W}}_{\mathrm{R}}}\xspace}
+\newcommand{\Ne}{\ensuremath{\mathrm{N}_{\Pe}}\xspace}
+\newcommand{\Nm}{\ensuremath{\mathrm{N}_{\mu}}\xspace}
+\newcommand{\Nt}{\ensuremath{\mathrm{N}_{\tau}}\xspace}
+\newcommand{\WRpm}{\ensuremath{W_{\text{R}}^{\pm}}\xspace}
+\newcommand{\SU}{\ensuremath{\mathrm{SU}}\xspace}
+\newcommand{\U}{\ensuremath{\mathrm{U}}\xspace}
+\newcommand{\mZpReco}{\ensuremath{{M}_\mathrm{{Z}^{\prime}}^{\text{Reco}}}\xspace}
+
+%% \title : 22pt로 나오는 큰 제목
+%% \title* : 16pt로 나오는 작은 제목
+\title{Searching for heavy neutrinos using the LHC proton-proton collision data at $\sqrt{s} = 13~\TeV$ collected by the CMS detector.}
+\title*{CMS 검출기로 수집된 거대 강입자 충돌기의 질량중심 에너지 $13~\TeV$ 양성자-양성자 충돌 데이터를 사용한 무거운 중성미자 탐사}
+
+\academicko{이학}
+\schoolen{COLLEGE OF NATURAL SCIENCE}
+\departmenten{DEPARTMENT OF PHYSICS AND ASTRONOMY}
+\departmentko{물리천문학부}
+
+%% 저자 이름 Author's(Your) name
+%\author{홍길동}
+%\author*{홍~길~동} % Insert space for Hangul name.
+\author{오성빈}
+\author*{오~성~빈} % Same as \author.
+
+%% 학번 Student number
+\studentnumber{2013-20374}
+
+%% 지도교수님 성함 Advisor's name
+%% (?) Use Korean name for Korean professor.
+%\advisor{홍길동}
+%\advisor*{홍~길~동} % Insert space for Hangul name.
+\advisor{양운기}
+\advisor*{양~운~기}
+
+%% 학위 수여일 Graduation date
+%% 표지에 적히는 날짜.
+%% 학위 수여일이 아니라 논문 발간년도를 적어야 할 수도 있음.
+%\graddate{2010~년~2~월}
+\graddate{June 2021}
+
+%% 논문 제출일 Submission date
+%% (?) Use Korean date format.
+\submissiondate{2021~년~6~월}
+
+%% 논문 인준일 Approval date
+%% (?) Use Korean date format.
+\approvaldate{2021~년~6~월}
+
+%% Note: 인준지의 교수님 성함은
+%% 컴퓨터로 출력하지 않고, 교수님께서
+%% 자필로 쓰시기도 합니다.
+%% Committee members' names
+\committeemembers%
+{최선호}%
+{양운기}%
+{김선기}%
+{정성훈}%
+{최수용}
+%% Length of underline
+%\setlength{\committeenameunderlinelength}{7cm}
+
+\begin{document}
+\pagenumbering{Roman}
+\makefrontcover
+\makefrontcover
+\makeapproval
+
+\cleardoublepage
+\pagenumbering{roman}
+% 초록 Abstract
+
+\keyword{SNU, High Energy Physics, thesis}
+
+\input{abstract.tex}
+
+\tableofcontents
+\listoffigures
+\listoftables
+
+\cleardoublepage
+\pagenumbering{arabic}
+
+\input{introduction.tex}
+
+\printbibliography
+
+\appendix
+\input{appendices/First.tex}
+
+\keywordalt{서울대학교, 고에너지물리학, 졸업논문}
+\begin{abstractalt}
+  입자물리학은 20세기를 거쳐 눈부신 발전을 이뤄냈지만 여전히 이 우주에는 밝혀지지 않은 수수께끼들이 있다. 그 중에서도 중성미자의 질량과 그것을 생성하는 기작은 표준모형을 넘어서는 이론이 필요하다고
+  주장하는 대표적인 현상 중 하나다. 이에 덧붙여서, 약한상호작용이 가지는 특이한 카이랄성은 반전성 대칭 붕괴에 대해 확실한 근거를 제공하지 못한다는 점에서 자연스럽지 않다.
+  표준모형의 좌우대칭 확장은 이러한 문제를 해결하는 전통적인 방법 중 하나다. 여기에 다소 복잡한 힉스보존 구조를 사용하면, 예를들어 하나의 겹이중항과 두개의 삼중항, 중성미자 질량이
+  다른 페르미 입자들보다 왜 크게 작은지 설명할 수 있는 시소(see-saw)기작이 자연스럽게 적용된다. 이 확장된 모형의 군은 ${SU(2)}_{L} \times {SU(2)}_{R} \times {U(1)}_{B - L}$ 로 표현되며,
+  자발적 대칭성 붕괴를 통해 낮은 에너지 수준에서는 표준모형과 동일한 ${SU(2)}_{L} \times {U(1)}_{Y}$ 군으로 근사된다. 여기서 한번더 자발적 대칭성 붕괴에 의해 ${U(1)}_{em}$ 군으로 표현된다.
+
+  이 논문에서는 질량중심 에너지 13 \TeV 으로 발생시킨 양성자-양성자 충돌에서 위 모형에서 등장하는 새로운 중성 게이지 보존 (\Zp)이 생성되고, 이것이 두개의 무거운 중성미자로 붕괴하는 반응을
+  탐사한 결과를 발표한다. 이 과정에서 두개의 하전 경입자와 네개의 젯들이 형성되는데, 하전 경입자들의 경우 두개의 전자 혹은 두개의 뮤온이 생성되는 과정만 고려되었다. 분석에 사용한 데이터는
+  거대 강입자 가속기에 있는 CMS 검출기로 수집하였으며, 총 $137.4 {\unit{fb}}^{-1}$ 의 총 적분 광도량에 해당한다.
+  
+\end{abstractalt}
+
+\acknowledgement
+Thanks.
+
+\end{document}
+
