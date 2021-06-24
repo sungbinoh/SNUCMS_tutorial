@@ -27,7 +27,7 @@
 - Tutorials    
     - SNU server (현산)    
     - MadGraph (시현)    
-    - SKFlatAnalyzer (현산)    
+    - SKFlatAnalyzer (진)    
     
 **Others**
 - Glossary (각자 생각날 때)    
