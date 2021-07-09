@@ -1,0 +1,15 @@
+executable = run.sh
+output = run$(process).out
+error = run$(process).err
+log = run.log
+
+## you can request more resource
+#request_memory = 8000
+#request_cpus = 4
+
+## you can require some conditions
+#requirements = TARGET.FileSystemDomain==My.FileSystemDomain
+
+queue 1
+## you can submit many jobs at once
+#queue 10
