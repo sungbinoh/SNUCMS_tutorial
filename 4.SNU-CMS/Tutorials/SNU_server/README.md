@@ -175,6 +175,20 @@ xrdcp root://cms-xrd-global.cern.ch//store/data/Run2018A/SingleMuon/MINIAOD/17Se
 @*You need the [CMS grid certificate](#cms-grid-certificate) to use this service.*  
 You can submit CMS crab jobs from SNU servers.  
 
+### *brilcalc*
+You can also use *brilcalc* on SNU servers by using ssh tunneling or web-cache access. I recommend the web-cache access since it is faster although the result is not realtime.
+See [brilws document](https://cms-service-lumi.web.cern.ch/cms-service-lumi/brilwsdoc.html#Off-site-access).
+```
+##### setup_bril.sh ######
+export PATH=$HOME/.local/bin:/cvmfs/cms-bril.cern.ch/brilconda/bin:$PATH ## prerequisite
+pip install --user --upgrade brilws ## check update
+function _brilcalc_local() { brilcalc $@ -c /cvmfs/cms.cern.ch/SITECONF/local/JobConfig/site-local-config.xml;}                                                                                           
+alias brilcalc='_brilcalc_local' ## use the web cache by default
+
+## test ##
+brilcalc lumi -r 284077 
+```
+
 ## Troubleshooting
 ### My job is held by *condor*
 You can check the hold reason using `condor_q -hold`
