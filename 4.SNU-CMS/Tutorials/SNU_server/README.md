@@ -4,6 +4,7 @@
 [Access](#access)  
 [Storage](#storage)  
 [Job scheduler *condor*](#job-scheduler-condor)  
+[Advanced uasge](#advanced-usage)  
 [Additional notes for CMS users](#additional-notes-for-cms-users)  
 [Troubleshooting](#troubleshooting)  
 
@@ -14,12 +15,12 @@ The cluster servers consist of two submission machines and 19 working machines. 
 
 **tamsa1.snu.ac.kr**: Submission machine, Centos7, 16 threads, RAM 40G  
 **tamsa2.snu.ac.kr**: Submission machine, Centos7, 8 threads, RAM 16G  
-**n[3-10], node[1-11]**: Working machines, Centos7, 20~48 threads/machine (total 784 threads), RAM ~ 4G/thread  
+**n[1-11], node[1-11]**: Working machines, Centos7, 20~48 threads/machine (total 948 threads), RAM ~ 4G/thread, two RTX3090  
 
 ### Standalone servers
 The standalone servers are just computers with many threads. You can run job directly without job scheduling.  
 **cms1.snu.ac.kr**: SLC6, 72 threads, RAM 256G  
-**cms2.snu.ac.kr**: SLC6, 72 threads, RAM 256G  
+**cms2.snu.ac.kr**: Centos7, 72 threads, RAM 256G  
 
 ## Access
 All SNU servers use *ssh* port 1240 instead of 22
@@ -61,7 +62,7 @@ Now, you can access the server without typing a password.
 
 ## Job scheduler *condor*
 @*This section is only relevant for cluster servers (*tamsa1/2*).*  
-This section describes briefly about *condor* commands. More detail description can be found in the official [condor manual](https://research.cs.wisc.edu/htcondor/manual/v8.6/index.html).
+This section describes briefly about *condor* commands. More detail description can be found in the official [condor manual](https://htcondor.readthedocs.io/en/v9_0/).
 
 ### Submitting jobs
 
@@ -132,6 +133,53 @@ There are some useful options.
 ```
 condor_status -avail -state
 ```
+## Advanced usage
+### GPU usage
+Currently, there are two RTX3090 on *n11* node.   
+Here is simple example using *PyTorch*. We need *cuda 11* for RTX3090 and *python 3.8* for *pytorch*.  
+```bash
+### setup.sh
+export PYTHONUSERBASE=/data6/Users/$USER/.local ## tamsa1/2 are not sharing home directory. Let's use /data6 as python user base.
+source /cvmfs/sft.cern.ch/lcg/releases/LCG_101cuda/cuda/11.2/x86_64-centos7-gcc8-opt/setup.sh ## cuda 11.2
+source /cvmfs/sft.cern.ch/lcg/releases/LCG_101cuda/Python/3.8.6/x86_64-centos7-gcc8-opt/Python-env.sh ## python 3.8.6
+source /cvmfs/sft.cern.ch/lcg/releases/LCG_101cuda/pip/21.0.1/x86_64-centos7-gcc8-opt/pip-env.sh ## pip 21.0.1 to instal torch
+source /cvmfs/sft.cern.ch/lcg/releases/LCG_101cuda/blas/0.3.17.openblas/x86_64-centos7-gcc8-opt/blas-env.sh ## openblas 0.3.17 for numpy
+pip install --user torch==1.8.2+cu111 torchvision==0.9.2+cu111 torchaudio==0.8.2 -f https://download.pytorch.org/whl/lts/1.8/torch_lts.html
+```
+```python
+### gpu_test.py
+#!/usr/bin/env python
+import torch
+ 
+# Default CUDA device
+cuda = torch.device('cuda')
+ 
+# allocates a tensor on default GPU
+a = torch.tensor([1., 2.], device=cuda)
+ 
+# transfers a tensor from 'C'PU to 'G'PU
+b = torch.tensor([1., 2.]).cuda()
+
+print("cuda avail: {}".format(torch.cuda.is_available()))
+print("current device: {}".format(torch.cuda.current_device()))
+print("device count: {}".format(torch.cuda.device_count()))
+
+for idx in range(0, torch.cuda.device_count()):
+    print("device:{}".format(torch.cuda.device(idx)))
+    print("device name:{}".format(torch.cuda.get_device_name(idx)))
+```
+```bash
+### condor.jds
+executable=gpu_test.py
+output=job.out
+error=job.err
+log=job.log
+getenv=true
+request_gpus=1
+queue 1
+```
+You can submit the job with `source setup.sh; condor_submit condor.jds`.
+
 ## Additional notes for CMS users
 ### *ROOT* setup
 You can use various versions of *ROOT* from *CVMFS*.
