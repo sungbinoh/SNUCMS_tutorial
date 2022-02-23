@@ -1,0 +1,14 @@
+#!/bin/sh
+
+# data
+hadd DATA/TutorialRun_SingleMuon.root DATA/*.root
+
+# MC
+mkdir MCSamples
+cp Tutorial_reco_tt_TTLL_powheg.root MCSamples/TutorialRun_TTLL.root
+cp Tutorial_reco_tt_TTLJ_powheg.root MCSamples/TutorialRun_TTLJ.root
+cp Tutorial_reco_tt_SingleTop_sch_Lep.root MCSamples/TutorialRun_SingleTop_sch_Lep.root
+cp Tutorial_reco_tt_SingleTop_tW_antitop_NoFullyHad.root MCSamples/TutorialRun_SingleTop_tW_antitop_NoFullyHad.root
+cp Tutorial_reco_tt_SingleTop_tW_top_NoFullyHad.root MCSamples/TutorialRun_SingleTop_tW_top_NoFullyHad.root
+
+hadd MCSamples/TutorialRun_ST.root Tutorial_reco_tt_SingleTop_*.root
