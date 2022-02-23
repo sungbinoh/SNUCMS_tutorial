@@ -34,7 +34,7 @@ In this tutorial, let's call the Drell-Yan process as the signal process and the
 In the data, it is not possible to clarify each event from certain process if many processes share the same final phase space. Therefore, it is also important to estimate how many events are coming from the background processes as well as from the signal process.
 
 ## Environment setup
-Follow the instruction in https://github.com/CMSSNU/SKFlatAnalyzer
+Follow the instruction in https://github.com/CMSSNU/SKFlatAnalyzer/Zmass
 Check whether the test job runs fine. Tips: you can use --reduction option for the test run:
 ```
 SKFlat.py -a ExampleRun -i DYJets -n 1 -y 2016 --reduction 100 &
@@ -44,7 +44,7 @@ In this tutorial, we will use TutorialRun analyzer. I put TutorialRun.h and Tuto
 ```
 cd /data6/Users/${USER}/SKFlatAnalyzer
 source setup.sh
-export TUTORIALRUN="/data6/Users/snu_public/4.SNU-CMS/Tutorials/SKFlatAnalyzer"
+export TUTORIALRUN="/data6/Users/snu_public/4.SNU-CMS/Tutorials/SKFlatAnalyzer/Zmass"
 cp ${TUTORIALRUN}/TutorialRun/TutorialRun.h $SKFlat_WD/Analyzers/include/
 cp ${TUTORIALRUN/TutorialRun/TutorialRun.C $SKFlat_WD/Analyzers/src/
 ```
